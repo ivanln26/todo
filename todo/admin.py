@@ -1,4 +1,7 @@
 from django.contrib import admin
 from .models import ToDo
 
-admin.site.register(ToDo)
+class ToDoAdmin(admin.ModelAdmin):
+    list_filter = ('archived',)
+
+admin.site.register(ToDo, ToDoAdmin)
