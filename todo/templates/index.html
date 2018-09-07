@@ -11,10 +11,13 @@
         </div>
     </form>
     {% for todo in todos%}
-        <h2>
-            {{ todo.date | date:"d/m/Y " }} 
-            {{ todo }} 
-            <a class="black-text" href="{% url 'delete' todo.id %}"><i class="material-icons">delete</i></a>
-        </h2>
+        {% if not todo.archived %}
+            <h2>
+                {{ todo.date | date:"d/m/Y " }}
+                {{ todo }} 
+                <a class="black-text" href="{% url 'delete' todo.id %}"><i class="material-icons">delete</i></a>
+                <a class="black-text" href="{% url 'archive' todo.id %}"><i class="material-icons">archive</i></a>
+            </h2>
+        {% endif %}
     {% endfor %}
 {% endblock %}

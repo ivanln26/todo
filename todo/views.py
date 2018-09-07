@@ -19,3 +19,9 @@ def delete(request, todo_id):
     todo = ToDo.objects.get(pk=todo_id)
     todo.delete()
     return redirect('index')
+
+def archive(request, todo_id):
+    todo = ToDo.objects.get(pk=todo_id)
+    todo.archived = True
+    todo.save()
+    return redirect('index')
