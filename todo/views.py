@@ -1,7 +1,21 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-
+from django.shortcuts import render, redirect
+from django.db import models
+from .models import ToDo
+from .forms import ToDoForm
 
 def index(request):
-    return render(request, "index.html")
-    return HttpResponse("<h1>TODO</h1>")
+    todos = ToDo.objects.order_by('-date')
+    todoform = ToDoForm()
+    ctx = {'todos': todos, 'todoform': todoform}
+    return render(request, "index.html", ctx)
+
+def todo(request):
+    content = request.POST.get('content')
+    todo = ToDo(content=content)
+    todo.save()
+    return redirect('index')
+
+def delete(request, todo_id):
+    todo = ToDo.objects.get(pk=todo_id)
+    todo.delete()
+    return redirect('index')
