@@ -1,23 +1,24 @@
 {% extends "base.html" %}
 
+{% block title %}To Do{% endblock %}
+
 {% block content %}
-    <h1>TODO</h1>
-    <form action="/todo" method="post">
-        {% csrf_token %}
-        <div class="input-field">
-            <label for="{{ form.content.id_for_label }}">{{ todoform.content.label }}</label>
-            {{ todoform.content }}
-            <button class="waves-effect waves-light btn">Send</button>
-        </div>
-    </form>
-    {% for todo in todos%}
-        {% if not todo.archived %}
-            <h2>
-                {{ todo.date | date:"d/m/Y " }}
-                {{ todo }} 
-                <a class="black-text" href="{% url 'delete' todo.id %}"><i class="material-icons">delete</i></a>
-                <a class="black-text" href="{% url 'archive' todo.id %}"><i class="material-icons">archive</i></a>
-            </h2>
-        {% endif %}
-    {% endfor %}
+  <form action="/todo" method="post">
+    {% csrf_token %}
+    <div class="input-field">
+      <label for="{{ form.content.id_for_label }}">{{ todoform.content.label }}</label>
+      {{ todoform.content }}
+      <button class="waves-effect waves-light btn">Send</button>
+    </div>
+  </form>
+  {% for todo in todos %}
+    {% if not todo.archived %}
+      <h2>
+        {{ todo.date | date:"d/m/Y " }}
+        {{ todo }} 
+        <a class="black-text" href="{% url 'delete' todo.id %}"><i class="material-icons">delete</i></a>
+        <a class="black-text" href="{% url 'archive' todo.id %}"><i class="material-icons">archive</i></a>
+      </h2>
+    {% endif %}
+  {% endfor %}
 {% endblock %}
