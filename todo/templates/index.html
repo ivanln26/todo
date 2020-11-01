@@ -12,9 +12,9 @@
     </div>
   </form>
   {% for todo in todos %}
-    {% if not todo.archived %}
+    {% if not todo.is_archived %}
       <h2>
-        {{ todo.date | date:"d/m/Y " }}
+        {{ todo.created_at | date:"d/m/Y " }}
         {{ todo }} 
         <a class="black-text" href="{% url 'delete' todo.id %}"><i class="material-icons">delete</i></a>
         <a class="black-text" href="{% url 'archive' todo.id %}"><i class="material-icons">archive</i></a>

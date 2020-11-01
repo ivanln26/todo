@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
 from django.db import models
-from .models import ToDo
+from django.shortcuts import render, redirect
+
 from .forms import ToDoForm
+from .models import ToDo
 
 def index(request):
-    todos = ToDo.objects.order_by('-date')
+    todos = ToDo.objects.order_by('-created_at')
     todoform = ToDoForm()
     ctx = {'todos': todos, 'todoform': todoform}
     return render(request, "index.html", ctx)
@@ -22,6 +23,6 @@ def delete(request, todo_id):
 
 def archive(request, todo_id):
     todo = ToDo.objects.get(pk=todo_id)
-    todo.archived = True
+    todo.is_archived = True
     todo.save()
     return redirect('index')
